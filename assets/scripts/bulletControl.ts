@@ -5,7 +5,7 @@ const { ccclass, property } = _decorator;
 @ccclass("bulletControl")
 export class bulletControl extends Component {
   @property
-  speed: number = 100; // 子弹速度
+  speed: number = 500; // 子弹速度
 
   start() {
     const collider = this.node.getComponent(Collider2D);
