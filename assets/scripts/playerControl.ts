@@ -7,14 +7,17 @@ export class playerControl extends Component {
   bulletPrefab: Prefab = null;
 
   start() {
+    
     console.log("visiblesize:", view.getVisibleSize());
+
     // 移动
     this.node.on(Node.EventType.TOUCH_MOVE, (ev: EventTouch) => {
       const uiPos = ev.getUILocation();
       const canvas = this.node.parent // 父节点为canvas
       const canvasUITransform = canvas.getComponent(UITransform);
       const canvasWidth = canvasUITransform.width, canvasHeight = canvasUITransform.height;
-      this.node.setPosition(uiPos.x - canvasWidth / 2, uiPos.y - canvasHeight / 2);
+      this.node.setPosition(uiPos.x - canvasWidth / 2, uiPos.y - canvasHeight / 2); // 方法一
+      // this.node.setWorldPosition(uiPos.x, uiPos.y, 0); // 方法二 worldPosition原点canvas左下角
     });
     // 发射子弹
     this.schedule(() => {

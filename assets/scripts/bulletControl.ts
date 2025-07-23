@@ -1,5 +1,6 @@
-import { _decorator, Collider2D, Component, Contact2DType, Node, view } from "cc";
+import { _decorator, Collider2D, Component, Contact2DType, Node, view, find } from "cc";
 import { enemyControl } from "./enemyControl";
+import { score } from "./score";
 const { ccclass, property } = _decorator;
 
 @ccclass("bulletControl")
@@ -28,6 +29,7 @@ export class bulletControl extends Component {
     if (otherCollider.tag === 1) { // 假设敌人节点的标签为1
       otherCollider.getComponent(enemyControl)?.die(); // 调用敌人节点的die方法
       this.node.destroy(); // 销毁子弹节点
+      find("Canvas/score")?.getComponent(score)?.addScore(); // 获取分数节点并增加分数
     }
   }
 

@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, resources, SpriteFrame, Sprite, view } from "cc";
+import { _decorator, Component, Node, resources, SpriteFrame, Sprite, view, isValid } from "cc";
 const { ccclass, property } = _decorator;
 
 @ccclass("enemyControl")
@@ -25,15 +25,15 @@ export class enemyControl extends Component {
  
   // 敌人死亡处理
   die () {
-    console.log("Enemy died");
-
     this.isDie = true;
+    
     resources.load("enemy1/spriteFrame", SpriteFrame, (err, spriteFrame) => {
       if (err) {
         console.error("Failed to load enemy1 sprite:", err);
         return;
       }
-      if (this) this.getComponent(Sprite).spriteFrame = spriteFrame; 
+      if (!isValid(this.node)) return; // 确保节点仍然有效
+      this.getComponent(Sprite).spriteFrame = spriteFrame; 
       this.scheduleOnce(() => {
         this.node.destroy(); // 延迟销毁敌人节点
       }, 0.5); // 0.5秒后销毁
